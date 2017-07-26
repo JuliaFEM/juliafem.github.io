@@ -18,7 +18,30 @@ layout: default
             -->
             <h3>
                 <a class="post-link" href="{{ post.url | relative_url }}">
-                    {{ post.title | escape }}
+                    {{ post.title | escape }}.jl
+                </a>
+                <a href="https://github.com/JuliaFEM/{{post.title}}.jl/blob/master/LICENSE.md">
+                    <img src="https://img.shields.io/github/license/JuliaFEM/{{post.title}}.jl.svg" alt="License Information" style="margin-top: 2px;">
+                </a>
+                <!--
+                <a href="http://pkg.julialang.org/?pkg={{post.title}}&ver=0.5">
+                    <img src="http://pkg.julialang.org/badges/{{post.title}}_0.5.svg" alt="Release testing status" style="margin-top: 2px;">
+                </a>
+                -->
+                <a href="http://pkg.julialang.org/?pkg={{post.title}}&ver=0.6">
+                    <img src="http://pkg.julialang.org/badges/{{post.title}}_0.6.svg" alt="Release testing status" style="margin-top: 2px;">
+                </a>
+
+                <a href="https://travis-ci.org/JuliaFEM/{{post.title}}.jl">
+                    <img src="https://travis-ci.org/JuliaFEM/{{post.title}}.jl.svg?branch=master" alt="Build Status" style="margin-top: 2px;">
+                </a>
+
+                <a href="https://coveralls.io/github/JuliaFEM/{{post.title}}.jl?branch=master">
+                    <img src="https://coveralls.io/repos/github/JuliaFEM/{{post.title}}.jl/badge.svg?branch=master" alt="Coverage Status" style="margin-top: 2px;">
+                </a>
+
+                <a href="https://juliafem.github.io/{{post.title}}.jl/latest">
+                    <img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Latest Documentation" style="margin-top: 2px;">
                 </a>
             </h3>
             <p>
