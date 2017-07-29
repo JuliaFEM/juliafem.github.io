@@ -1,7 +1,7 @@
 ---
 layout: page
 title:  FEMQuad.jl
-permalink: /FEMQuad.jl/
+permalink: /packages/FEMQuad.jl/
 ---
 
 FEMQuad.jl contains various of integration schemes for cartesian and tetrahedron domains. The most common integration rules are tabulated and focus is on speed.
