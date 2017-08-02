@@ -1,14 +1,15 @@
 ---
-layout: post
+layout: page
 title:  AbaqusReader
-date:   2017-07-26 00:00:00 +0300
-categories: project
+permalink: /packages/AbaqusReader.jl/
 ---
 
 AbaqusReader.jl can be used to parse ABAQUS .inp file format. Two functions is exported:
 `abaqus_read_mesh(filename::String)` can be used to parse mesh to simple Dict-based structure.
 With function `abaqus_read_model(filename::String)` it's also possible to parse more information
 from model, like boundary conditions and steps.
+
+<!-- more -->
 
 Reading mesh is made simple:
 ```

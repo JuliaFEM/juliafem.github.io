@@ -6,6 +6,8 @@ permalink: /packages/FEMQuad.jl/
 
 FEMQuad.jl contains various of integration schemes for cartesian and tetrahedron domains. The most common integration rules are tabulated and focus is on speed.
 
+<!-- more -->
+
 Usage is straightforward. For example, to integrate function f(x) = 1 + x[1] + x[2] + x[1]*x[2] in standard rectangular domain [-1,1]^2, 4 point Gauss-Legendre integration rule is needed:
 ```julia
 using FEMQuad

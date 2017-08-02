@@ -1,8 +1,7 @@
 ---
-layout: post
+layout: page
 title:  JuliaFEM
-date:   2015-05-13 23:58:56 +0300
-categories: project
+permalink: /packages/JuliaFEM.jl/
 ---
 
 The JuliaFEM software library is a framework that allows for the distributed

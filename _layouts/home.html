@@ -6,58 +6,54 @@ layout: default
     
     {{ content }}
 
-    <h1 class="page-heading">Projects</h1>
-  
+    <h1 class="page-heading">Packages</h1>
+ 
     <ul class="post-list">
-        {% for post in site.posts %}
-        {% if post.categories contains "project" %}
-        <li>
-            {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-            <!--
-                <span class="post-meta">{{ post.date | date: date_format }}</span>
-            -->
-            <h3>
-                <a class="post-link" href="{{ post.url | relative_url }}">
-                    {{ post.title | escape }}.jl
-                </a>
+        {% for package in site.pages %}
+            {% if package.path contains "packages" %}
+                <li>
+                    <h3>
+                        <a class="post-link" href="{{ package.url | relative_url }}">
+                            {{ package.title | escape }}.jl
+                        </a>
 
-                <a href="https://travis-ci.org/JuliaFEM/{{post.title}}.jl">
-                    <img src="https://travis-ci.org/JuliaFEM/{{post.title}}.jl.svg?branch=master" alt="Build Status" style="margin-top: 2px;">
-                </a>
+                        <a href="https://travis-ci.org/JuliaFEM/{{package.title}}.jl">
+                            <img src="https://travis-ci.org/JuliaFEM/{{package.title}}.jl.svg?branch=master" alt="Build Status" style="margin-top: 2px;">
+                        </a>
 
-                <!--
-                <a href="https://github.com/JuliaFEM/{{post.title}}.jl/blob/master/LICENSE.md">
-                    <img src="https://img.shields.io/github/license/JuliaFEM/{{post.title}}.jl.svg" alt="License Information" style="margin-top: 2px;">
-                </a>
-                -->
+                        <!--
+                        <a href="https://github.com/JuliaFEM/{{package.title}}.jl/blob/master/LICENSE.md">
+                            <img src="https://img.shields.io/github/license/JuliaFEM/{{package.title}}.jl.svg" alt="License Information" style="margin-top: 2px;">
+                        </a>
+                        -->
 
-                <!--
-                <a href="http://pkg.julialang.org/?pkg={{post.title}}&ver=0.5">
-                    <img src="http://pkg.julialang.org/badges/{{post.title}}_0.5.svg" alt="Release testing status" style="margin-top: 2px;">
-                </a>
-                -->
+                        <!--
+                        <a href="http://pkg.julialang.org/?pkg={{package.title}}&ver=0.5">
+                            <img src="http://pkg.julialang.org/badges/{{package.title}}_0.5.svg" alt="Release testing status" style="margin-top: 2px;">
+                        </a>
+                        -->
 
-                <a href="http://pkg.julialang.org/?pkg={{post.title}}&ver=0.6">
-                    <img src="http://pkg.julialang.org/badges/{{post.title}}_0.6.svg" alt="Release testing status" style="margin-top: 2px;">
-                </a>
+                        <a href="http://pkg.julialang.org/?pkg={{package.title}}&ver=0.6">
+                            <img src="http://pkg.julialang.org/badges/{{package.title}}_0.6.svg" alt="Release testing status" style="margin-top: 2px;">
+                        </a>
 
-                <a href="https://coveralls.io/github/JuliaFEM/{{post.title}}.jl?branch=master">
-                    <img src="https://coveralls.io/repos/github/JuliaFEM/{{post.title}}.jl/badge.svg?branch=master" alt="Coverage Status" style="margin-top: 2px;">
-                </a>
+                        <a href="https://coveralls.io/github/JuliaFEM/{{package.title}}.jl?branch=master">
+                            <img src="https://coveralls.io/repos/github/JuliaFEM/{{package.title}}.jl/badge.svg?branch=master" alt="Coverage Status" style="margin-top: 2px;">
+                        </a>
 
-                <a href="https://juliafem.github.io/{{post.title}}.jl/latest">
-                    <img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Latest Documentation" style="margin-top: 2px;">
-                </a>
+                        <a href="https://juliafem.github.io/{{package.title}}.jl/latest">
+                            <img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Latest Documentation" style="margin-top: 2px;">
+                        </a>
 
-                <a href="https://github.com/JuliaFEM/{{post.title}}.jl/issues" alt="See issues" style="margin-top: 2px;">
-                    <img src="https://img.shields.io/github/issues/JuliaFEM/{{post.title}}.jl.svg">
-                </a>
-            </h3>
-            <p>
-            {{ post.excerpt }}
-            </p>
-        </li>
-        {% endif %}
+                        <a href="https://github.com/JuliaFEM/{{package.title}}.jl/issues" alt="See issues" style="margin-top: 2px;">
+                            <img src="https://img.shields.io/github/issues/JuliaFEM/{{package.title}}.jl.svg">
+                        </a>
+                    </h3>
+                    <p>
+                    {{ package.content | split:"<!-- more -->" | first }}
+                    </p>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 
@@ -66,7 +62,6 @@ layout: default
 
     <ul class="post-list">
         {% for post in site.posts %}
-        {% unless post.categories contains "project" %}
         <li>
             {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
             <span class="post-meta">{{ post.date | date: date_format }}</span>
@@ -79,7 +74,6 @@ layout: default
             {{ post.excerpt }}
             </p>
         </li>
-        {% endunless %}
         {% endfor %}
     </ul>
     -->

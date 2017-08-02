@@ -1,7 +1,7 @@
 ---
-layout: post
+layout: page
 title:  MiniBall
-categories: project
+permalink: /packages/MiniBall.jl/
 ---
 
 Julia package for a smallest enclosing sphere for points in arbitrary dimensions
