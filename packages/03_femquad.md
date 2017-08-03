@@ -1,6 +1,6 @@
 ---
 layout: page
-title:  FEMQuad.jl
+title:  FEMQuad
 permalink: /packages/FEMQuad.jl/
 ---
 
