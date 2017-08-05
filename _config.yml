@@ -32,4 +32,5 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - bundler
+  - scripts
   - README.md

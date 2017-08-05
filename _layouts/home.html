@@ -13,17 +13,18 @@ layout: default
             {% if package.path contains "packages" %}
                 <li>
                     <h3>
-                        <a class="post-link" href="{{ package.url | relative_url }}">
-                            {{ package.title | escape }}.jl
+                        <a class="post-link" href="https://juliafem.github.io/{{package.title}}/latest">
+                            {{ package.title | escape }}
                         </a>
-
-                        <a href="https://travis-ci.org/JuliaFEM/{{package.title}}.jl">
-                            <img src="https://travis-ci.org/JuliaFEM/{{package.title}}.jl.svg?branch=master" alt="Build Status" style="margin-top: 2px;">
+<!--
+                        <a href="https://travis-ci.org/JuliaFEM/{{package.title}}">
+                            <img src="https://travis-ci.org/JuliaFEM/{{package.title}}.svg?branch=master" alt="Build Status" style="margin-top: 2px;">
                         </a>
+-->
 
                         <!--
-                        <a href="https://github.com/JuliaFEM/{{package.title}}.jl/blob/master/LICENSE.md">
-                            <img src="https://img.shields.io/github/license/JuliaFEM/{{package.title}}.jl.svg" alt="License Information" style="margin-top: 2px;">
+                        <a href="https://github.com/JuliaFEM/{{package.title}}/blob/master/LICENSE.md">
+                            <img src="https://img.shields.io/github/license/JuliaFEM/{{package.title}}.svg" alt="License Information" style="margin-top: 2px;">
                         </a>
                         -->
 
@@ -33,20 +34,20 @@ layout: default
                         </a>
                         -->
 
-                        <a href="http://pkg.julialang.org/detail/{{package.title}}.html">
-                            <img src="https://pkg.julialang.org/badges/{{package.title}}_0.6.svg" alt="Release testing status" style="margin-top: 2px;">
+                        <a href="http://pkg.julialang.org/detail/{{package.title | remove: ".jl"}}.html">
+                            <img src="https://pkg.julialang.org/badges/{{package.title | remove: ".jl"}}_0.6.svg" alt="Release testing status" style="margin-top: 2px;">
                         </a>
 
-                        <a href="https://coveralls.io/github/JuliaFEM/{{package.title}}.jl?branch=master">
-                            <img src="https://coveralls.io/repos/github/JuliaFEM/{{package.title}}.jl/badge.svg?branch=master" alt="Coverage Status" style="margin-top: 2px;">
+                        <a href="https://coveralls.io/github/JuliaFEM/{{package.title}}?branch=master">
+                            <img src="https://coveralls.io/repos/github/JuliaFEM/{{package.title}}/badge.svg?branch=master" alt="Coverage Status" style="margin-top: 2px;">
                         </a>
-
-                        <a href="https://juliafem.github.io/{{package.title}}.jl/latest">
+<!--
+                        <a href="https://juliafem.github.io/{{package.title}}/latest">
                             <img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Latest Documentation" style="margin-top: 2px;">
                         </a>
-
-                        <a href="https://github.com/JuliaFEM/{{package.title}}.jl/issues" alt="See issues" style="margin-top: 2px;">
-                            <img src="https://img.shields.io/github/issues/JuliaFEM/{{package.title}}.jl.svg">
+-->
+                        <a href="https://github.com/JuliaFEM/{{package.title}}/issues" alt="See issues" style="margin-top: 2px;">
+                            <img src="https://img.shields.io/github/issues/JuliaFEM/{{package.title}}.svg">
                         </a>
                     </h3>
                     <p>
