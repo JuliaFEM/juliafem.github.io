@@ -3,4 +3,4 @@ layout: page
 title: ModelReduction.jl
 ---
 
-Tools to reduce the dimension of model, e.g. static and dynamic condensation for multibody dynamics problems
+ModelReduction is a repository of JuliaFEM to reduce the dimension of a model for multibody dynamics problems. The package includes e.g. the Guyan reduction and the Craig-Bampton method. 

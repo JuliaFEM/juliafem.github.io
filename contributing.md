@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Contributing to JuliaFEM
+title: Contributing
 permalink: /contributing/
 ---
 

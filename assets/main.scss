@@ -1,0 +1,26 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+#badgerow {
+	text-align: justify;
+        width: 650px;
+	}
+
+#badgerow > div {
+        // background-color: green;
+	// width: 180px; /* Declare your value. Can be in relative units. */
+	display: inline-block;
+	vertical-align: top;
+
+	/* IE fix. */
+	*display: inline;
+	zoom: 1;
+	}
+
+#badgerow:after {
+	content: "";
+	width: "100%";
+	display: inline-block;
+    }
