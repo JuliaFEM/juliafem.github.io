@@ -34,3 +34,4 @@ exclude:
   - bundler
   - scripts
   - README.md
+  - .gitignore
