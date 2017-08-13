@@ -1,8 +1,6 @@
 ---
-layout: page
-title: Performance
+layout: performance
 permalink: /performance/
 ---
 
-Here we measure the performance of JuliaFEM codes using real life simulations.
-
+Here we measure the performance of JuliaFEM codes using more or less real life simulations and models.

@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <h1 class="page-heading">Performance</h1>
+  
+  {{ content }}
+
+  <ul class="post-list">
+    {% for post in site.pages %}
+        {% if post.title %}
+        {% if post.path contains "performance" %}
+          <li>
+            {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+            <a class="post-link" href="{{ post.url | relative_url }}">
+                {{ post.title | escape }}
+            </a>
+            <span class="post-meta">
+                {{ post.date | date: date_format }},
+                {{ post.author }}
+            </span>
+            <p>
+            {{ post.content | split:"<!-- more -->" | first }}
+            </p>
+          </li>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+
+</div>
