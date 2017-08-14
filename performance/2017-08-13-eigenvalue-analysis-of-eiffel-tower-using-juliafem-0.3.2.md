@@ -19,6 +19,10 @@ and in particular in storing results to Xdmf.
 
 <img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_mesh_closer_1.png">
 <img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_first_eigenmode.png">
+<video width="480" height="540" controls loop>
+  <source src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 ## Code
 
