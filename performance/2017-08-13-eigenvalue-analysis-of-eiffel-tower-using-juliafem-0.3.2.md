@@ -10,7 +10,15 @@ Eigenvalue analysis of Eiffel tower is done using JuliaFEM 0.3.2 and Julia 0.6.
 Results show that some code optimization is needed in assembly of global matrices
 and in particular in storing results to Xdmf.
 
+<img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_model.png" width="48%">
+<img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_mesh_closer_2.png" width="48%">
+
 <!-- more -->
+
+## Mesh details and first eigenmode
+
+<img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_mesh_closer_1.png">
+<img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_first_eigenmode.png">
 
 ## Code
 
