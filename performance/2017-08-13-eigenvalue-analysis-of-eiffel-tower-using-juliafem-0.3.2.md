@@ -7,6 +7,8 @@ categories: performance eiffel-tower v0.3.2
 ---
 
 Eigenvalue analysis of Eiffel tower is done using JuliaFEM 0.3.2 and Julia 0.6.
+Results show that some code optimization is needed in assembly of global matrices
+and in particular in storing results to Xdmf.
 
 <!-- more -->
 
@@ -17,7 +19,11 @@ using JuliaFEM
 using JuliaFEM.Preprocess
 using JuliaFEM.Postprocess
 
-#model = "EIFFEL_TOWER_TET10_220271"
+# script takes model name as a first argument, e.g.
+# model = "EIFFEL_TOWER_TET10_220271", and it is expected
+# that there is corresponding mesh file in directory
+# eiffel-tower, e.g. "eiffel-tower/EIFFEL_TOWER_TET10_220271.inp"
+
 model = ARGS[1]
 mesh = joinpath("eiffel-tower", "$model.inp")
 results = "$model"
@@ -144,4 +150,33 @@ print_statistics()
  ──────────────────────────────────────────────────────────────────────────────
 ```
 
+**2357071 nodes**
+
+```
+ ──────────────────────────────────────────────────────────────────────────────
+                                       Time                   Allocations
+                               ──────────────────────   ───────────────────────
+       Tot / % measured:           10669s / 100%            1145GiB / 100%
+
+ Section               ncalls     time   %tot     avg     alloc   %tot      avg
+ ──────────────────────────────────────────────────────────────────────────────
+ run performance test       1   10653s   100%  10653s   1144GiB  100%   1144GiB
+   solve eigenvalue...      1   10608s   100%  10608s   1134GiB  99.1%  1134GiB
+     save results t...      1    3104s  29.1%   3104s    167GiB  14.6%   167GiB
+     assemble matrices      1    3100s  29.1%   3100s    639GiB  55.9%   639GiB
+     solve eigenval...      1    1624s  15.2%   1624s    155GiB  13.5%   155GiB
+   parse input data         1    36.8s  0.35%   36.8s   7.75GiB  0.68%  7.75GiB
+   initialize model         1    7.64s  0.07%   7.64s   2.22GiB  0.19%  2.22GiB
+```
+
 ## Further analysis and discussion
+
+<img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/performance.png">
+
+Looks that saving results to Xdmf is taking a long time (should not) and that's
+indeed develop target in next releases. Large memory allocation in global assembly
+is telling that a lot of temporary matrices, so that's a good development target
+also in future. From figure that time for storing results and global assembly grows
+linearly as the function of dofs, while the actual solving of system not. It can be
+expected that when model is big enough, most of the time is used in solution of
+system, not in other operations.

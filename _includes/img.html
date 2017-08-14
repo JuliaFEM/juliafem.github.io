@@ -1,0 +1,2 @@
+{% capture namespace %}{{ post.path | split:"/" | last | split:"." | first }}{% endcapture %}
+<img src="/assets/{{ namespace }}/{{ include.name }}">
