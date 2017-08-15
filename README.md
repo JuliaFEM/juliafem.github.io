@@ -9,8 +9,8 @@ to same site.
 local machine (computer you are using to develop), you can do `bundle exec jekyll serve` and check
 using your web browser from url address `localhost:4000`, (i.e. write to address bar `http://localhost:4000`)
 that content is OK. **If that is the case**, you can then push directly to the
-master. **Otherwise**, create branch, do changes, make pull request and ask someone to review changes
-locally before merging.
+master. **Otherwise**, create branch to repository [juliafem.github.io](https://github.com/JuliaFEM/juliafem.github.io),
+do changes, make pull request and ask someone to review changes locally before merging.
 
 **for others**: Fork, do local changes, do pull request. If you want to be extra helpful and have
 installed Jekyll things on local machine, you can add screenshot of page to PR to make it easier
