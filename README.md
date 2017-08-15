@@ -7,7 +7,8 @@ to same site.
 
 **for contributors**: If you have all [Jekyll](https://jekyllrb.com/) related stuff installed on
 local machine (computer you are using to develop), you can do `bundle exec jekyll serve` and check
-from `localhost:4000` that content is OK. **If that is the case**, you can then push directly to the
+using your web browser from url address `localhost:4000`, (i.e. write to address bar `http://localhost:4000`)
+that content is OK. **If that is the case**, you can then push directly to the
 master. Otherwise, create branch, do changes, make pull request and ask someone to review changes
 locally before merging.
 
