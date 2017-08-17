@@ -89,7 +89,7 @@ tie2 = create_interface(mesh,
     "Adapterplate2ToLDUBracket")
 ```  
 
-All problems need to be added into `Solver(solver_type, problem_names)` function where solver_type is the type of the solver (Modal, Linear, Nonlinear). In this example we are using a modal solver that solves generalized eigenvalue problems Ku = Muλ since we are calculating natural frequencies.
+All problems need to be added into `Solver(solver_type, problem_names)` function where `solver_type` is the type of the solver (Modal, Linear, Nonlinear). In this example we are using a modal solver that solves generalized eigenvalue problems Ku = Muλ since we are calculating natural frequencies.
 
 The results can be imported to xdmf file format for further review. This is performed by typing `solver_name.xdmf = Xdmf(result_file_name::String)` where `solver_name` is the name of our solver which we defined and `result_file_name` is the name we want to give our xdmf result file.
 
