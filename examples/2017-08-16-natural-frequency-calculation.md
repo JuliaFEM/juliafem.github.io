@@ -15,16 +15,13 @@ using JuliaFEM.Abaqus: create_surface_elements
 ```
 
 The mesh needs to be read from ABAQUS input file to JuliaFEM. The function `abaqus_read_mesh(ABAQUS_input_file_name::String)` will do the trick.
-`info()` will give information about the element and surface sets in the model.
 
 ```julia
 # read mesh
 mesh = abaqus_read_mesh("LDU_ld_r2.inp")
-info("element sets = ", collect(keys(mesh.element_sets)))
-info("surface sets = ", collect(keys(mesh.surface_sets)))
 ```
 
-`Problem(problem_type, problem_name::String, problem_dimension)` function will construct a new field problem where `problem_type` is the type of the problem (Elasticity, Dirichlet, etc.), `problem_name::String` is the name of the problem and `problem_dimension` is the number of DOF:s in one node (1 in a heat problem, 2 in a 2D problem, 3 in an elastic 3D problem, 6 in a 3D beam problem, etc.).
+`Problem(problem_type, problem_name::String, problem_dimension)` function will construct a new field problem where `problem_type` is the type of the problem (Elasticity, Dirichlet, Mortar etc.), `problem_name::String` is the name of the problem and `problem_dimension` is the number of DOF:s in one node (1 in a heat problem, 2 in a 2D problem, 3 in an elastic 3D problem, 6 in a 3D beam problem, etc.).
 
 `create_elements(mesh, Element_set_name::String)` function will collect the element sets from the ABAQUS input file. In this example the element sets are named as `bracket_elements` and `adapterplate_elements`.
 
@@ -47,24 +44,26 @@ add_elements!(bracket, bracket_elements)
 add_elements!(bracket, adapterplate_elements)
 ```
 
-The boundary conditions need to be created from the node sets. The `Problem()` function is used again to perform this.
+Boundary conditions can be created from node sets. `Problem(problem_type, problem_name::String, problem_dimension, parent_field_name::String)` function is used again to perform this. In this method the problem type is Dirichlet and `parent_field_name` is the type of the Dirichlet variable ("temperature", "displacement", etc.).
 
-Then the fixed nodes and the fixed elements of the model are defined.
+Then the fixed nodal elements are collected from the input file with the function `create_nodal_elements(mesh::Mesh, node_set_name::String)`.
 
-The displacements are then updated to the solver with `update!('fixed_elements_name')`
+The displacements are then updated with `update!(node_set_name::String, parent_field_name direction::String, value)` where `direction` is the direction of the displacement and `value` is the value of the nodal displacement which of course is 0.0 since our elements are fixed.
 
 ```julia
-# create a boundary condition from the node set
+# create a boundary condition from a node set
 fixed = Problem(Dirichlet, "fixed", 3, "displacement")
-fixed_nodes = mesh.node_sets[:Face_Constraint_1]
-fixed.elements = [Element(Poi1, [nid]) for nid in fixed_nodes]
-update!(fixed.elements, "displacement 1", 0.0)
-update!(fixed.elements, "displacement 2", 0.0)
+fixed_elements = create_nodal_elements(mesh, "Face_constraint_1")
+update!(fixed_elements, "displacement 1", 0.0)
+update!(fixed_elements, "displacement 2", 0.0)
 ```
 
+In JuliaFEM new functions can be built with the help of other JuliaFEM functions. For example we need now a helper function to create tie contacts to our model. 
+
+Our function is called `create_interface` and it has three variables: mesh, slave and master. `mesh` refers to our input file name that is defined at the begining of this document, `slave` is the name of our slave surface in the input file and `master` is the name of the master surface. The function uses `Problem()` function with the `Mortar` method, `create_surface_elements` function and `update!` function from the JuliaFEM library.
 
 ```julia
-# a helper function to create a tie contact
+# a helper function to create tie contacts
 function create_interface(mesh::Mesh, slave::String, master::String)
     interface = Problem(Mortar, "tie contact", 3, "displacement")
     interface.properties.dual_basis = false
@@ -78,6 +77,8 @@ function create_interface(mesh::Mesh, slave::String, master::String)
   end
 ```
 
+Interfaces can now be applied with our own function `create_interface(mesh, slave::String, master::String)` that collects necessary information from our input file and creates a tie contact.
+
 ```julia  
 # call the helper function to create the tie contacts
 tie1 = create_interface(mesh,
@@ -88,13 +89,21 @@ tie2 = create_interface(mesh,
     "Adapterplate2ToLDUBracket")
 ```  
 
+All problems need to be added into `Solver(solver_type, problem_names)` function where solver_type is the type of the solver (Modal, Linear, Nonlinear). In this example we are using a modal solver that solves generalized eigenvalue problems Ku = Muλ since we are calculating natural frequencies.
+
+The results can be imported to xdmf file format for further review. This is performed by typing `solver_name.xdmf = Xdmf(result_file_name::String)` where `solver_name` is the name of our solver which we defined and `result_file_name` is the name we want to give our xdmf result file.
+
+Yet we need to specify some properties for our analysis. We only want to calculate the first six frequencies for our model. This can be done by first typing `solver_name.properties.nev = value` where `nev` refers to the number of eigenmodes and `value` is the number of eigenmodes which are to be calculated, and then typing `bracket_freqs.properties.which = :SM` where `which` refers to the type of the eigenmodes (:SM, :LM , etc.) and `:SM` specifies that the eigen modes to be calculated shall be the smallest ones.
+
+Finally by simply typing `solver_name()` we are commanding JuliaFEM to start the analysis.
+
 ```julia
 # add the field and the boundary problems to the solver
-solver = Solver(Modal, bracket, fixed, tie1, tie2)
+bracket_freqs = Solver(Modal, bracket, fixed, tie1, tie2)
 # save results to Xdmf data format ready for ParaView visualization
-solver.xdmf = Xdmf("results")
+bracket_freqs.xdmf = Xdmf("results")
 # solve 6 smallest eigenvalues
-solver.properties.nev = 6
-solver.properties.which = :SM
-solver()
+bracket_freqs.properties.nev = 6
+bracket_freqs.properties.which = :SM
+bracket_freqs()
 ```  
