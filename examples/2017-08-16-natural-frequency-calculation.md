@@ -122,5 +122,17 @@ bracket_freqs.xdmf = Xdmf("results")
 bracket_freqs.properties.nev = 6
 bracket_freqs.properties.which = :SM
 bracket_freqs()
-```  
+```
 
+### Results
+
+JuliaFEM gives the following calculation results for the analysis.
+
+| Mode | f [Hz] |
+| ---- |:------:|
+| 1    | 111.38 |
+| 2    | 155.03 |
+| 3    | 215.40 |
+| 4    | 358.76 |
+| 5    | 409.65 |
+| 6    | 603.51 |
