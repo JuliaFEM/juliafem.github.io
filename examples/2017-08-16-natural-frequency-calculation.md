@@ -4,8 +4,24 @@ title: Natural Frequency Calculation Example
 author: Marja Rapo
 ---
 
+### The model
 
-First type `using 'package_name' ` for all the packages needed in the calculation.
+The example model is a bracket that is attached to two adapter plates via tie contacts. The adapter plates are constrained from one of their side as fixed.
+
+![Alt text](https://user-images.githubusercontent.com/28561253/29460847-205aff2c-8432-11e7-8a8b-0505f3c4ff3d.PNG)
+
+The Bracket is modeled as cast iron while the Adapter plates are modeled as steel.
+
+The material parameters are listed in the following table.
+
+| Part           | Material  | E [MPa] | μ     | ρ [kg/m<sup>3</sup>] |
+| -------------- |:---------:| -------:|------:|---------------------:|
+| Adapter plates | Steel     | 208000  | 0.30  | 7800                 |
+| LDU Bracket    | Cast Iron | 165000  | 0.275 | 7100                 |
+
+### The code
+
+First all the packages needed in the calculation are included by typing `using package_name `.
 
 ```julia
 using JuliaFEM
@@ -34,12 +50,12 @@ The element sets are then added into the element list of the Problem: `add_eleme
 bracket = Problem(Elasticity, "LDU_Bracket", 3)
 bracket_elements = create_elements(mesh, "LDUBracket")
 adapterplate_elements = create_elements(mesh, "Adapterplate1", "Adapterplate2")
-update!(els1, "youngs modulus", 208.0E3)
-update!(els1, "poissons ratio", 0.30)
-update!(els1, "density", 7.80E-9)
-update!(els2, "youngs modulus", 165.0E3)
-update!(els2, "poissons ratio", 0.275)
-update!(els2, "density", 7.10E-9)
+update!(bracket_elements, "youngs modulus", 208.0E3)
+update!(bracket_elements, "poissons ratio", 0.30)
+update!(bracket_elements, "density", 7.80E-9)
+update!(adapterplate_elements, "youngs modulus", 165.0E3)
+update!(adapterplate_elements, "poissons ratio", 0.275)
+update!(adapterplate_elements, "density", 7.10E-9)
 add_elements!(bracket, bracket_elements)
 add_elements!(bracket, adapterplate_elements)
 ```
@@ -58,12 +74,12 @@ update!(fixed_elements, "displacement 1", 0.0)
 update!(fixed_elements, "displacement 2", 0.0)
 ```
 
-In JuliaFEM new functions can be built with the help of other JuliaFEM functions. For example we need now a helper function to create tie contacts to our model. 
+JuliaFEM allows new functions to be built with the help of other JuliaFEM functions. For example we need now a helper function to create tie contacts to our model. 
 
 Our function is called `create_interface` and it has three variables: mesh, slave and master. `mesh` refers to our input file name that is defined at the begining of this document, `slave` is the name of our slave surface in the input file and `master` is the name of the master surface. The function uses `Problem()` function with the `Mortar` method, `create_surface_elements` function and `update!` function from the JuliaFEM library.
 
 ```julia
-# a helper function to create tie contacts
+""" A helper function to create tie contacts. """
 function create_interface(mesh::Mesh, slave::String, master::String)
     interface = Problem(Mortar, "tie contact", 3, "displacement")
     interface.properties.dual_basis = false
@@ -74,13 +90,13 @@ function create_interface(mesh::Mesh, slave::String, master::String)
     update!(slave_elements, "master elements", master_elements)
     interface.elements = [slave_elements; master_elements]
     return interface
-  end
+end
 ```
 
 Interfaces can now be applied with our own function `create_interface(mesh, slave::String, master::String)` that collects necessary information from our input file and creates a tie contact.
 
 ```julia  
-# call the helper function to create the tie contacts
+# call the helper function to create tie contacts
 tie1 = create_interface(mesh,
 	"LDUBracketToAdapterplate1",
     "Adapterplate1ToLDUBracket") 
@@ -107,3 +123,4 @@ bracket_freqs.properties.nev = 6
 bracket_freqs.properties.which = :SM
 bracket_freqs()
 ```  
+
