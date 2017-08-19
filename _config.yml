@@ -23,6 +23,10 @@ url: "http://juliafem.github.io" # the base hostname & protocol for your site, e
 twitter_username: JuliaFEM
 github_username:  JuliaFEM
 
+# Discus Comments
+disqus:
+    shortname: juliafem
+
 # Build settings
 markdown: kramdown
 theme: minima

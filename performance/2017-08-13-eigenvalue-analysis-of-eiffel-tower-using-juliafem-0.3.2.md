@@ -3,6 +3,7 @@ layout: post
 author: Jukka Aho
 title: Eigenvalue analysis of Eiffel tower
 date: 2017-08-13
+comments: true
 categories: performance eiffel-tower v0.3.2
 ---
 
