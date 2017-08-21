@@ -8,7 +8,7 @@ author: Marja Rapo
 
 The example model is a bracket that is attached to two adapter plates via tie contacts. The adapter plates are constrained from one of their side as fixed.
 
-<img src="/assets/2017-08-16-natural-frequency-calculation/mesh.png">
+![The model](https://github.com/maikkirapo/juliafem.github.io/blob/master/assets/2017-08-16-natural-frequency-calculation/mesh.PNG)
 
 The Bracket is modeled as cast iron while the Adapter plates are modeled as steel.
 
