@@ -1,22 +1,24 @@
 ---
 title: Natural Frequency Calculation Example
-
 author: Marja Rapo
+categories: eigenmodes juliafem-0.3.3
 ---
+
+Simulation is done using JuliaFEM v0.3.3.
 
 ### The model
 
 The example model is a bracket that is attached to two adapter plates via tie contacts. The adapter plates are constrained from one of their side as fixed.
 
-![The model](https://github.com/maikkirapo/juliafem.github.io/blob/master/assets/2017-08-16-natural-frequency-calculation/mesh.PNG)
+<img src="{{ site.url }}/assets/2017-08-16-natural-frequency-calculation/mesh.PNG">
 
 The Bracket is modeled as cast iron while the Adapter plates are modeled as steel.
 
 The material parameters are listed in the following table.
 
 | Part           | Material  | E [MPa] | μ     | ρ [kg/m<sup>3</sup>] |
-| -------------- |:---------:| -------:|------:|---------------------:|
-| Adapter plates | Steel     | 208000  | 0.30  | 7800                 |
+| -------------- | --------- | ------- | ----- |--------------------- |
+| Adapter plates | Steel     | 208000  | 0.300 | 7800                 |
 | LDU Bracket    | Cast Iron | 165000  | 0.275 | 7100                 |
 
 ### The code
@@ -98,10 +100,10 @@ Interfaces can now be applied with our own function `create_interface(mesh, slav
 ```julia  
 # call the helper function to create tie contacts
 tie1 = create_interface(mesh,
-	"LDUBracketToAdapterplate1",
+    "LDUBracketToAdapterplate1",
     "Adapterplate1ToLDUBracket") 
 tie2 = create_interface(mesh,
-	"LDUBracketToAdapterplate2",
+    "LDUBracketToAdapterplate2",
     "Adapterplate2ToLDUBracket")
 ```  
 
