@@ -5,11 +5,18 @@ permalink: /features/
 ---
 
 ## Solid mechanics
-(pictures to come)
+<img src="/assets/features/usf_strain_pulse_modelling.png">
 
 ## Heat transfer
-(pictures to come)
+<img src="/assets/features/heat_sink.png">
 
 ## Contact mechanics
-(pictures to come)
+<img src="/assets/features/contact_mechanics_1.png">
 
+## Natural frequency analysis
+
+<img src="/assets/features/eiffel_first_eigenmode.png">
+
+## Scripting
+
+<img src="/assets/features/scripting.png">
