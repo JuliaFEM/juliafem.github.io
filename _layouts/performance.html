@@ -9,7 +9,7 @@ layout: default
   {{ content }}
 
   <ul class="post-list">
-    {% for post in site.pages %}
+    {% for post in site.pages reversed %}
         {% if post.title %}
         {% if post.path contains "performance" %}
           <li>
