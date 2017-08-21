@@ -20,3 +20,35 @@ Examples can be written using Jupyter Notebooks or Markdown. See
 `examples/2017-08-06-instructions-how-to-write-examples` how to write using Jupyter and
 `performance/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2.md` how to write
 using Markdown syntax.
+
+## Adding images
+
+Place your video/image to
+```
+    <REPO_DIR>/assets/<blog-post>/<myimg>.png
+```
+
+For example, if the blog post name is
+    `2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2`
+and you want to add image
+    `eiffel_model.png`,
+the correct path is
+```
+    <REPO_DIR>/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_model.png
+```
+
+`REPO_DIR` is the directory where `juliafem.github.io` is cloned.
+
+Then, to point that image inside blog post, use the following format:
+```
+<img src="/assets/<blog-post>/<myimg>.png">
+```
+
+For example, using the example above, the corresponding tag would be:
+```
+<img src="/assets/2017-08-13-eigenvalue-analysis-of-eiffel-tower-using-juliafem-0.3.2/eiffel_model.png">
+```
+
+Also, it's a very good idea to watermark at least the most important pictures
+with JuliaFEM logo (can be found from /assets/) and maybe who has done the
+simulation, where, and so on.
