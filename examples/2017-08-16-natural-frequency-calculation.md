@@ -99,6 +99,7 @@ fixed = Problem(Dirichlet, "fixed", 3, "displacement")
 fixed_elements = create_nodal_elements(mesh, "Face_constraint_1")
 update!(fixed_elements, "displacement 1", 0.0)
 update!(fixed_elements, "displacement 2", 0.0)
+update!(fixed_elements, "displacement 3", 0.0)
 ```
 
 JuliaFEM allows new functions to be built with the help of other JuliaFEM
