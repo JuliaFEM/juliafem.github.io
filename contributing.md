@@ -146,6 +146,9 @@ is markdown cheatsheet. See issue [#49](https://github.com/JuliaFEM/JuliaFEM.jl/
 This is not (yet) strict requirement, but try to keep line width max 80 characters, like
 in Python.
 
+### For performance critical functions use @inferred
+See issue [#90](https://github.com/JuliaFEM/JuliaFEM.jl/issues/90)
+
 ### References
 
 * https://try.github.io/levels/1/challenges/1
