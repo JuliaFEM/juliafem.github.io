@@ -1,4 +1,4 @@
----
+﻿---
 layout: example
 title: Reordering nodes with the Reverse Cuthill-McKee algorithm
 author: Marja Rapo
@@ -6,7 +6,6 @@ date: 2017-08-29 17:30:00 +0300
 categories: RCM juliafem-0.3.3
 ---
 
-The analysis is performed with JuliaFEM v0.3.3.
 
 # Introduction
 
@@ -21,13 +20,15 @@ in less fill-in than the CM ordering when Gaussian elimination is applied."
 Basically the algorithm reduces bandwidth of a matrix by reordering nodes in a mesh 
 (or vertices in a graph) in the degree order. 
 
+
 # The mesh
 
 The figure below shows the original mesh in the example. The mesh has 9 elements 
 and 15 nodes. Two of the elements are type Tri3 and the rest of the elements’ types 
 are Quad4.
 
-<img src="{{ site.url }}/assets/2017-08-29-reordering-nodes-with-the-RCM-algorithm/mesh.PNG">
+<img src="{{ site.url }}/assets/2017-08-29-reordering-nodes-with-the-RCM-algorithm/mesh.png">
+
 
 # Theory
 
@@ -49,7 +50,8 @@ This is called the Cuthill-McKee order. Since we want the Reverse Cuthill-McKee 
 we simply reverse the order and we get the final order to be 
 `[14, 9, 6, 12, 7, 13, 5, 2, 11, 10, 8, 3, 4, 1, 15]`.
 
-### The code
+
+# The code
 
 First we include all the packages needed in our calculation. PyPlot is used only to 
 visualize the matrices in this example.
@@ -121,7 +123,7 @@ matshow(newmatrix)
 
 The figure below shows the original adjacency graph and the new RCM ordered graph as matrices.
 
-<img src="{{ site.url }}/assets/2017-08-29-reordering-nodes-with-the-RCM-algorithm/matrices.PNG">
+<img src="{{ site.url }}/assets/2017-08-29-reordering-nodes-with-the-RCM-algorithm/matrices.png">
 
 # References
 
