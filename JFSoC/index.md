@@ -9,7 +9,7 @@ Here we list the Summer of Code projects
 ## 2017
 
 This summer I got to be a part of the JuliaFEM project. My main responsibilities where to code two 
-repositories: NodeNumbering.jl and ModelReduction.jl. I also wrote a paper about calculating natural 
+repositories: NodeNumbering.jl and ModelReduction.jl. I also wrote [a paper](https://doi.org/10.23998/rm.65040) about calculating natural 
 frequencies with JuliaFEM and improved the documentation and examples of JuliaFEM.
 
 NodeNumbering.jl contains functions to perform the Reverse Cuthill-McKee algorithm which is used to 
