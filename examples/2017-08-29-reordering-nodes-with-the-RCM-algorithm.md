@@ -32,8 +32,8 @@ are Quad4.
 
 # Theory
 
-The degree is the number of nodes one node is adjacent to. The degree ordering 
-begins from the starting node (the lowest degree node), let us call it P and in tour 
+Degree is the number of nodes one node is adjacent to. The degree ordering 
+begins from the starting node (the lowest degree node), let us call it P and in our 
 example P = 15 with the degree of 2. Then all nodes adjacent to P in their degree 
 order (lowest degree first), which are nodes 1 and 4, are added. Now nodes 1 and 4 
 both have the same degree, which is 3, so their order don't matter. We decide to add 
@@ -92,7 +92,7 @@ element_types = Dict(
 P = 15
 ```
 
-Now we can start to use the functions of NodeNumbering. First we use 
+Now we can start to use the functions of NodeNumbering.jl. First we use 
 `create_adjacency_graph(elements, element_types)` to create the adjacency graph which 
 shows the original node adjacencies in the mesh.
 Then using `node_degrees(adjacency)` we list the degrees of all nodes in the mesh.
