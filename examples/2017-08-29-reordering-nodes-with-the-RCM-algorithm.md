@@ -1,11 +1,10 @@
-﻿---
+---
 layout: example
 title: Reordering nodes with the Reverse Cuthill-McKee algorithm
 author: Marja Rapo
 date: 2017-08-29 17:30:00 +0300
 categories: RCM juliafem-0.3.3
 ---
-
 
 # Introduction
 
