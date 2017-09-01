@@ -1,0 +1,333 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the first part of series of posts about programming new features to JuliaFEM. Simple examples demonstrating main concepts is given. As an example problem, we aim to program new truss element to JuliaFEM.</p>
+<p>In principle, all one needs to do is to define a new type of problem, define what kind of field is expected to return and then implement <code>assemble!</code>-function which takes the assembly, problem, and a list of elements to assemble. All development can be done using Jupyter Notebooks if wanted.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">JuliaFEM</span>
+<span class="k">import</span> <span class="n">JuliaFEM</span><span class="o">:</span> <span class="n">assemble!</span><span class="p">,</span> <span class="n">get_unknown_field_name</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="s">&quot;JuliaFEM&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING: Method definition info(Any...) in module Base at util.jl:532 overwritten in module Logging at C:\Users\jahx06\.julia\v0.6\Logging\src\Logging.jl:115.
+WARNING: Method definition warn(Any...) in module Base at util.jl:585 overwritten in module Logging at C:\Users\jahx06\.julia\v0.6\Logging\src\Logging.jl:115.
+01-Sep 11:36:33:WARNING:root:replacing docs for &#39;JuliaFEM.field :: Tuple{Float64}&#39; in module &#39;JuliaFEM&#39;.
+01-Sep 11:36:33:WARNING:root:replacing docs for &#39;JuliaFEM.field :: Tuple{Float64}&#39; in module &#39;JuliaFEM&#39;.
+01-Sep 11:36:37:WARNING:root:replacing docs for &#39;JuliaFEM.solver :: Tuple{}&#39; in module &#39;JuliaFEM&#39;.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> - JuliaFEM                      0.3.2+             master
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The first thing needs to be done is to define new type which is a subtype of <code>FieldProblem</code> or <code>BoundaryProblem</code>. Boundary problems are affecting to the boundaries of domain while field problems is the actual field equation. A new type can have some internal properties defined if needed, as long as good defaults are provided. Our problem, in this case is simply:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">type</span> <span class="n">Truss</span> <span class="o">&lt;:</span> <span class="n">FieldProblem</span>
+<span class="k">end</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It's mandatory to define what kind of result can be expected from assembly procedure. This is more likely to be changed in future, but for now the return type is defined by a function <code>get_unknown_field_name</code>. In this particular case, we want to solve equations of elasticity and the unknown field is thus <code>displacement</code>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">get_unknown_field_name</span><span class="p">(</span><span class="n">problem</span><span class="o">::</span><span class="n">Problem</span><span class="p">{</span><span class="n">Truss</span><span class="p">})</span>
+    <span class="k">return</span> <span class="s">&quot;displacement&quot;</span>
+<span class="k">end</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>get_unknown_field_name (generic function with 6 methods)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The last thing is to provide a function which takes care of assembling element for problem global matrices defined inside problem as <code>problem.assembly</code>. To keep things simple, a very basic assembly procedure is implemented and it is improved in later posts. For now it's enough to know that local stiffness matrix for truss element is</p>
+\begin{align}
+K_{\mathrm{e}} &amp; =\frac{EA}{L}\left[\begin{array}{rr}
+1 &amp; -1\\
+-1 &amp; 1
+\end{array}\right] &amp; f_{e} &amp; =\frac{qL}{2}\left[\begin{array}{c}
+1\\
+1
+\end{array}\right]
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">assemble!</span><span class="p">(</span><span class="n">assembly</span><span class="o">::</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">problem</span><span class="o">::</span><span class="n">Problem</span><span class="p">{</span><span class="n">Truss</span><span class="p">},</span>
+                   <span class="n">element</span><span class="o">::</span><span class="n">Element</span><span class="p">{</span><span class="n">Seg2</span><span class="p">},</span> <span class="n">time</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">element</span><span class="p">(</span><span class="s">&quot;geometry&quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>  <span class="c"># get geometry</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c"># calculate length of rod</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">Ke</span> <span class="o">=</span> <span class="n">E</span><span class="o">*</span><span class="n">A</span><span class="o">/</span><span class="n">L</span><span class="o">*</span><span class="p">[</span><span class="mf">1.0</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span> <span class="o">-</span><span class="mf">1.0</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">fe</span> <span class="o">=</span> <span class="n">q</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">gdofs</span> <span class="o">=</span> <span class="n">get_gdofs</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>  <span class="c"># find global dofs of element</span>
+    <span class="n">add!</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">K</span><span class="p">,</span> <span class="n">gdofs</span><span class="p">,</span> <span class="n">gdofs</span><span class="p">,</span> <span class="n">Ke</span><span class="p">)</span>
+    <span class="n">add!</span><span class="p">(</span><span class="n">assembly</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">gdofs</span><span class="p">,</span> <span class="n">fe</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>assemble! (generic function with 36 methods)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, to test our implementation we create a simple 1d truss problem with two elements, assemble that and examine the global stiffness matrix and force vector:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="mi">1</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="mi">2</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span> <span class="mi">3</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">])</span>
+<span class="n">element1</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">Seg2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">element2</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">Seg2</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">element1</span><span class="p">,</span> <span class="n">element2</span><span class="p">]</span>
+<span class="n">update!</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="s">&quot;geometry&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">Truss</span><span class="p">,</span> <span class="s">&quot;test problem&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">add_elements!</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">elements</span><span class="p">)</span>
+<span class="n">assemble!</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>01-Sep 11:37:08:WARNING:root:Assemble problem test problem: seems that problem is uninitialized.
+01-Sep 11:37:08:INFO:root:Initializing problem test problem at time 0.0 automatically.
+01-Sep 11:37:08:WARNING:root:assemble!() this is default assemble operation, decreased performance can be expected without preallocation of memory!
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can then find the results from <code>problem.assembly</code>, i.e.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">full</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">assembly</span><span class="o">.</span><span class="n">K</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[6]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3×3 Array{Float64,2}:
+  1.0  -1.0   0.0
+ -1.0   2.0  -1.0
+  0.0  -1.0   1.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">full</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">assembly</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[7]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3×1 Array{Float64,2}:
+ 0.5
+ 1.0
+ 0.5</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
