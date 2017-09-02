@@ -19,9 +19,11 @@ description: > # this means to ignore newlines until "baseurl:"
     The JuliaFEM project develops open-source software for reliable, scalable,
     distributed Finite Element Method.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://juliafem.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://juliafem.github.io"
 twitter_username: JuliaFEM
 github_username:  JuliaFEM
+
+permalink: /:year/:month/:day/:title/
 
 # Discus Comments
 disqus:
@@ -32,6 +34,7 @@ markdown: kramdown
 theme: minima
 gems:
   - jekyll-feed
+  - jekyll-postfiles
 exclude:
   - Gemfile
   - Gemfile.lock
