@@ -47,9 +47,29 @@ In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
 
    `Pkg.clone("https://github.com/your_github_username/JuliaFEM.jl`
 
-   In the latter case, package will go to somewhat hidden place `~/.julia/v0.6/JuliaFEM`.
+   In the latter case, package will go to somewhat hidden place
+   `~/.julia/v0.6/JuliaFEM`.
+
    Notice, that if you clone repository to some non-standard location, you must make
-   julia aware of the new package location by a modifying `LOAD_PATH`.
+   julia aware of the new package location by a modifying `LOAD_PATH`. For example,
+   if you have JuliaFEM cloned to `~/repositories/JuliaFEM`, you need to
+   `push!(LOAD_PATH, joinpath(homedir(), "repositories")` before `using JuliaFEM`.
+
+   If you have already installed JuliaFEM using `Pkg.add`, you can simply edit that,
+   but in that case you have to push changes to your forked version as in default
+   you are not having push access to repositories under JuliaFEM organization. Add
+   your fork as remote repository for the JuliaFEM repository on your local computer:
+
+   `git remote add USERNAME https://github.com/USERNAME/JuliaFEM.jl.git`
+
+   After that you can push the changes to your fork by `git push USERNAME master`.
+
+   Make sure you are not having JuliaFEM two times in your system, i.e., one copy
+   in `~/.julia/v0.6/JuliaFEM` and other one in `~/repositories/JuliaFEM`. If that
+   is the case, you can rename the directory not to keep and after that make Julia
+   aware of JuliaFEM by making for example symbolic link to `~/.julia/v0.6` if
+   keeping the copy located in outside of Julia's package directory or add
+   non-standard path to `LOAD_PATH` as explained above.
 
 6. You can now navigate to JuliaFEM in the folder you chose at step 5. There
    you'll find the same contents as you see in your GitHub JuliaFEM repository.
