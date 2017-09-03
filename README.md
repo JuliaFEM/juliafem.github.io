@@ -65,3 +65,11 @@ Also, it's a very good idea to watermark at least the most important pictures
 with JuliaFEM logo (can be found from `/assets/logos`) and maybe who has done the
 simulation, when, and so on.
 
+## Adding examples
+
+Use the following string to split content of post to part shown as a 
+summary/teaser and rest of post:
+
+```
+<!-- more -->
+```

@@ -5,26 +5,32 @@ layout: default
 <div class="home">
 
   <h1 class="page-heading">Examples</h1>
-  
-  {{ content }}
-
+ 
   <ul class="post-list">
-    {% for post in site.pages %}
-    {% if post.path contains "example" %}
+      {% assign sorted = (site.examples | sort: 'date') | reverse %}
+      {% for example in sorted %}
+      {% unless example.title == "Index" %}
       <li>
         {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        {% assign url = (example.url | relative_url) %}
+        <span class="post-title" style="line-height: 0.5">
+            <a class="post-link" href="{{ url | replace: 'index', '' }}">
+                {{ example.title | escape }}
+            </a>
+        </span>
+        <span class="post-meta">
+            {{ example.date | date: date_format }}
+            by {{ example.author }}. Categories: 
+            {% for category in example.categories %}
+                {{ category }}{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+        </span>
 
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-        </h3>
-        <!--
-        <p>
-        {{ post.content | split:"<!-- more -->" | first }}
-        </p>
-        -->
+        {{ example.content | split:"<!-- more -->" | first }}
+
       </li>
-    {% endif %}
+
+    {% endunless %}
     {% endfor %}
   </ul>
 

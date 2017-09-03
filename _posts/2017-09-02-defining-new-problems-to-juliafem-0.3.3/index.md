@@ -9,3 +9,5 @@ categories: juliafem-0.3.3
 Foo bar ba bar.
 
 ![kuva](kuva.png)
+
+{% include_relative notebook.html %}

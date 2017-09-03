@@ -6,7 +6,9 @@ date: 2017-08-21 17:30:00 +0300
 categories: eigenmodes juliafem-0.3.3
 ---
 
-The analysis is performed with JuliaFEM v0.3.3.
+The analysis is performed with JuliaFEM v0.3.3
+
+<!-- more -->
 
 ### The model
 

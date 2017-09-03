@@ -6,6 +6,8 @@ date: 2017-08-29 17:30:00 +0300
 categories: RCM juliafem-0.3.3
 ---
 
+<!-- more -->
+
 # Introduction
 
 "In numerical linear algebra, the Cuthill–McKee algorithm (CM), named for Elizabeth 

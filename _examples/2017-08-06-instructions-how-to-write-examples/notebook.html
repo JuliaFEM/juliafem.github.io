@@ -1,10 +1,12 @@
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>These instructions describe how to make calculation example using Jupyter Notebooks. All files should be in a single directory, use coding <code>yyyy-mm-dd-description-of-my-notebook</code>, e.g. <code>2017-08-06-instructions-how-to-write-examples</code>.</p>
+<p>These instructions describe how to make examples using Jupyter Notebooks.</p>
+<!-- more -->
+
+<p>All files should be in a single directory, use coding <code>yyyy-mm-dd-description-of-my-notebook</code>, e.g. <code>2017-08-06-instructions-how-to-write-examples</code>.</p>
 <p>After you are ready with the notebook, use use <code>jupyter nbconvert</code> to convert notebook to html. Use basic template. For this notebook, the command was</p>
 
 <pre><code>    jupyter nbconvert --to html --template basic notebook.ipynb</code></pre>
@@ -19,7 +21,7 @@
 layout: example
 author: Jukka Aho
 title:  Instructions how to write examples using Jupyter notebook
-date:   2017-08-06 18:00:00 +0300
+date:   2017-08-06
 categories: instructions
 ---
 
@@ -48,7 +50,11 @@ categories: instructions
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Julia version = 0.6.0
 </pre>
@@ -75,7 +81,11 @@ categories: instructions
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stderr output_text">
 <pre><span class="ansi-yellow-intense-fg ansi-bold">WARNING: </span><span class="ansi-yellow-fg">unknown Conda commit ebc2e3fb, metadata may be ahead of package cache</span>
 <span class="ansi-yellow-intense-fg ansi-bold">WARNING: </span><span class="ansi-yellow-fg">unknown Conda commit f7a05aa0, metadata may be ahead of package cache</span>
@@ -83,7 +93,11 @@ categories: instructions
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> - JuliaFEM                      0.3.0+             documentation
 </pre>
@@ -94,14 +108,15 @@ categories: instructions
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Also use <code>JuliaFEM.print_statistics()</code> when necessary to give information about the runtimes of models.</p>
-<p>When everything is ready, fork <code>juliafem.github.io</code>, add directory to <code>/examples/</code> and do pull request as usual.</p>
+<p>Also use <code>print_timer()</code> when necessary to give information about the runtimes of models.</p>
+<p>When everything is ready, fork <code>juliafem.github.io</code>, add directory to <code>/_examples/</code> and do pull request as usual.</p>
 
 </div>
 </div>
 </div>
+ 
+
