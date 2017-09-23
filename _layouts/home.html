@@ -7,7 +7,9 @@ layout: default
     {{ content }}
 
     <h1 class="page-heading">Packages</h1>
- 
+
+    <p><b> You can access package documentation by clicking package name. </b></p>
+
     <ul class="post-list">
         {% for package in site.pages %}
             {% if package.path contains "packages" %}

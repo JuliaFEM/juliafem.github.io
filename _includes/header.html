@@ -9,7 +9,7 @@
     </a>
   
     {% if page_paths %}
-      <nav class="site-nav">
+      <nav class="site-nav" id="primary_nav_wrap">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -22,13 +22,43 @@
         </label>
 
         <div class="trigger">
-            <a class="page-link" href="{{ site.url }}/features">Features</a>
-            <a class="page-link" href="{{ site.url }}/contributing">Contributing</a>
-            <a class="page-link" href="{{ site.url }}/performance">Performance</a>
-            <a class="page-link" href="{{ site.url }}/JFSoC">Summer of Code</a>
-            <a class="page-link" href="{{ site.url }}/examples">Examples</a>
+            <ul>
+                <li>
+                    <a class="page-link" href="{{ site.url }}/features">Features</a>
+                </li>
+                <li>
+                    <a class="page-link" href="{{ site.url }}/contributing">Contributing</a>
+                </li>
+                <li>
+                    <a class="page-link" href="{{ site.url }}/performance">Performance</a>
+                </li>
+                <li>
+                    <a class="page-link" href="{{ site.url }}/JFSoC">Summer of Code</a>
+                </li>
+                <li>
+                    <a class="page-link" href="{{ site.url }}/examples">Examples</a>
+                </li>
+                <li>
+                    <a href="#">Documentation</a>
+                    <ul>
+                        <li><a class="page-link" href="{{ site.url }}/JuliaFEM.jl/latest">JuliaFEM</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/AbaqusReader.jl/latest">AbaqusReader</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/AsterReader.jl/latest">AsterReader</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/FEMBasis.jl/latest">FEMBasis</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/FEMQuad.jl/latest">FEMQuad</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/FEMSparse.jl/latest">FEMSparse</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/Materials.jl/latest">Materials</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/ModelReduction.jl/latest">ModelReduction</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/Mortar2D.jl/latest">Mortar2D</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/Mortar3D.jl/latest">Mortar3D</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/NodeNumbering.jl/latest">NodeNumbering</a></li>
+                        <li><a class="page-link" href="{{ site.url }}/Xdmf.jl/latest">Xdmf</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
       </nav>
+
     {% endif %}
   </div>
 </header>
