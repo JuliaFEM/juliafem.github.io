@@ -11,3 +11,7 @@ simple programming models. It is designed to scale up from single servers to
 thousands of machines, each offering local computation and storage. The basic 
 design principle is: everything is nonlinear. All physics models are nonlinear 
 from which the linearization are made as a special cases. 
+
+If you have any questions about the project, join the discussion at Gitter,
+either in [in English](https://gitter.im/JuliaFEM/JuliaFEM.jl) or 
+[in Finnish](https://gitter.im/JuliaFEM/Suomeksi).
