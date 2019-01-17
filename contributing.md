@@ -4,31 +4,29 @@ title: Contributing
 permalink: /contributing/
 ---
 
-In short, contribution to JuliaFEM goes in the same way like in other open source
-projects, so instructions to contribute follows closely what is described in other
-packages. We probably cannot explain the process better than the authors of Julia
-themself, so a good starting point is to read from Julia's documentation 
-[how to make changes to an existing packages](https://docs.julialang.org/en/stable/manual/packages/#Making-changes-to-an-existing-package-1).
-We use `Documenter.jl` to document packages, so it's also worth of reading [coding
-style guide](https://juliadocs.github.io/Documenter.jl/stable/man/contributing/).
-There's a hundreds of tutorials of using `git`, so they are also very relevant
-reading. Try google with search terms like `git tutorial`.
+Contributing to JuliaFEM works in the same way as contributing to other open-source
+projects, so instructions to contribute follows closely to what is described for
+other packages.
+We use `Documenter.jl` to document packages, so it is worth reading
+[Coding style guide](https://juliadocs.github.io/Documenter.jl/stable/man/contributing/).
+There are hundreds of tutorials on using `git` and [ProGit](https://git-scm.com/book/en/v2)
+is available for free online.
 
-**If you feel these instruction hard to follow, you can always ask for
+**You can always ask for
 assistance from our [Gitter channel](https://gitter.im/JuliaFEM/JuliaFEM.jl).**
 
-In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
+The basic steps for contributing to JuliaFEM are listed below:
 
 1. Create an account or sign in to [GitHub](https://github.com/).
 
-2. Go to [Git home page](http://git-scm.com/) and download the Git installer.
+2. Go to the [Git home page](http://git-scm.com/) and download the Git installer.
    Run the installer to get Git on your computer. It is a version control system
    used by GitHub. To learn its basics, go through this
    [Git tutorial](https://try.github.io/levels/1/challenges/1>). Another option
    is to install e.g. [SourceTree](https://www.sourcetreeapp.com/). Now you should
    have a `Git Bash` in your computer.
 
-3. Download and install Julia (v0.6+) to your computer. You can get the latest
+3. Download and install Julia (v0.6+) onto your computer. You can get the latest
    version from [here](https://julialang.org/downloads/). From [Julia
    README](https://github.com/JuliaLang/julia/blob/master/README.md) you will
    find the complete instructions for installing it for your platform.
@@ -43,7 +41,7 @@ In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
 
    `git clone https://github.com/your_github_username/JuliaFEM.jl.git`
     
-   Alternatively, you can clone the package using Julia's commmand
+   Alternatively, you can clone the package using Julia's command
 
    `Pkg.clone("https://github.com/your_github_username/JuliaFEM.jl`
 
@@ -53,18 +51,19 @@ In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
    Notice, that if you clone repository to some non-standard location, you must make
    julia aware of the new package location by a modifying `LOAD_PATH`. For example,
    if you have JuliaFEM cloned to `~/repositories/JuliaFEM`, you need to
-   `push!(LOAD_PATH, joinpath(homedir(), "repositories")` before `using JuliaFEM`.
-
-   If you have already installed JuliaFEM using `Pkg.add`, you can simply edit that,
-   but in that case you have to push changes to your forked version as in default
-   you are not having push access to repositories under JuliaFEM organization. Add
-   your fork as remote repository for the JuliaFEM repository on your local computer:
+   `push!(LOAD_PATH, joinpath(homedir(), "repositories")` before using JuliaFEM.
+   
+   If you have already installed JuliaFEM using `Pkg.add` you can simply edit that copy,
+   but you will have to push changes to your forked version as you would not have commit
+   access to the repositories under the JuliaFEM organization.
+   Add your fork as remote repository for the JuliaFEM repository on your local computer:
 
    `git remote add USERNAME https://github.com/USERNAME/JuliaFEM.jl.git`
 
    After that you can push the changes to your fork by `git push USERNAME master`.
-
-   Make sure you are not having JuliaFEM two times in your system, i.e., one copy
+   
+   Make sure that you do not have multiple copies of JuliaFEM on your system,
+   i.e. one copy
    in `~/.julia/v0.6/JuliaFEM` and other one in `~/repositories/JuliaFEM`. If that
    is the case, you can rename the directory not to keep and after that make Julia
    aware of JuliaFEM by making for example symbolic link to `~/.julia/v0.6` if
@@ -72,13 +71,13 @@ In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
    non-standard path to `LOAD_PATH` as explained above.
 
 6. You can now navigate to JuliaFEM in the folder you chose at step 5. There
-   you'll find the same contents as you see in your GitHub JuliaFEM repository.
+   you will find the same contents as you see in your GitHub JuliaFEM repository.
    Now, locate the file you want to modify, open it with your desired text
    editor, make the changes and save the new version. If you type `git status`,
-   you'll see that the files you've created or modified are listed under `untracked files`.
+   you will see that the files you have created or modified are listed under `untracked files`.
 
 7. Add the files you want to update to the staging area by typing
-   `git add <file1> <file2>...`. If you type `git status`, you'll see that
+   `git add <file1> <file2>...`. If you type `git status`, you will see that
    the files added to the staging area are listed under `Changes to be committed`.
    This process also supports wildcard symbols. If you want to remove a file
    from the staging area, type `git reset <file>`.
@@ -88,7 +87,7 @@ In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
    message should describe the changes that were made.
 
 9. When you are happy with the commits and want to update them to your
-   repository, type `git push origin master`.
+   repository, type `git push`.
 
 10. Go to your GitHub JuliaFEM repository. You'll notice that the commit you
     have made and pushed is now visible above the JuliaFEM file branch. If you
@@ -101,7 +100,7 @@ In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
     Do this until everyone is satisfied and your pull request can be merged to
     the master branch.
 
-There's also some GUI apps to use git if you don't feel command line comfortable.
+There are also some GUI apps to use git if you do not feel comfortable using the terminal.
 For OSX and Windows a good application is [SourceTree](https://www.sourcetreeapp.com),
 for Linux, maybe [SmartGit](http://www.syntevo.com/smartgit/) will work. GitHub
 has also desktop application.
@@ -110,10 +109,10 @@ has also desktop application.
 ### Details of contibuting to JuliaFEM
 
 Travis-CI runs [PkgTestSuite.jl](https://github.com/JuliaFEM/PkgTestSuite.jl) to
-verify the quality of code, so it's good idea to run that on own local computer
-before doing pull request. PkgTestSuite tests that all tests pass. Furthermore,
-some more tests are performed like testing that all source files have proper
-licence header and no tabulators has been used in code. If you have already done
+verify the quality of code, so it is good idea to run that on own local computer
+before making a pull request. PkgTestSuite tests that all tests pass.
+Some more tests are performed like testing that all source files have proper
+licence headers and no tabs has been used in code. If you have already done
 pull request, you can inspect from travis if the build fail to find out the cause
 of failure.
 
@@ -167,7 +166,9 @@ This is not (yet) strict requirement, but try to keep line width max 80 characte
 in Python.
 
 ### For performance critical functions use @inferred
-See issue [#90](https://github.com/JuliaFEM/JuliaFEM.jl/issues/90)
+See issue [#90](https://github.com/JuliaFEM/JuliaFEM.jl/issues/90). This macro tests that
+the expression that it is called on returns the same type as that inferred by the compiler.
+It is useful to check for type stability.
 
 ### References
 
