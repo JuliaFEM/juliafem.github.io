@@ -33,7 +33,7 @@ In a nutshell, the basic steps for contributing to JuliaFEM are listed below:
    README](https://github.com/JuliaLang/julia/blob/master/README.md) you will
    find the complete instructions for installing it for your platform.
 
-4. Go to the [JuliaFEM GitHub page](https://github.com/JuliaFEM/JuliaFEM.jl>).
+4. Go to the [JuliaFEM GitHub page](https://github.com/JuliaFEM/JuliaFEM.jl).
    At the top-right corner, press the `Fork`-button to fork your own copy of
    JuliaFEM to your own account.
 
